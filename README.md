@@ -1,7 +1,5 @@
 # GitHub action "diskspace"
 
-**WORK IN PROGRESS**
-
 This GitHub action checks available disk space on a remote host.
 
 ## Requirements
@@ -10,39 +8,20 @@ This GitHub action checks available disk space on a remote host.
 
 ## Environment variables
 
-### DEBUG
+| Variable | Default |Description | Required | 
+| --- | --- | --- | --- |
+| debug | - | When set, the action prints detailed debug information. | NO |
+| threshold | - | Minimum available disk space in megabytes. | YES |
+| host | - | Remote host to check. | YES |
+| ssh | `ssh` | SSH command to run the command on the remote host. | NO |
+| cmd | *See below* | Command to run on the remote host. | NO |
+| pattern | `(\\d+)` | Regular expression to find the available disk space in the output of the command. | No |
 
-When set, the action will print detailed debug information.
+**NOTE**
 
-### THRESHOLD
+The default values for `cmd` is `df -BM --output=avail /dev/xvda1`.
 
-Minimum available disk space in megabytes.
+**NOTE**
 
-This variable is **required**.
-
-### HOST
-
-Remote host to check.
-
-This variable is **required**.
-
-### SSH
-
-SSH command to use.
-
-Default: `ssh`.
-
-Add nessesary `ssh` options and flags to in this command. For example,
-`SSH=ssh -i path/to/key`.
-
-### CMD
-
-Command to run on the remote host.
-
-Default: `df -BM --output=avail /dev/xvda1`
-
-### PATTERN
-
-Regular expression to find the available disk space in the output of the command.
-
-Default: `(\\d+)`
+If necessary to add options or flags for the `ssh` command, they can be appended
+to the `ssh` variable. For example, `ssh -i path/to/key`.
