@@ -1,5 +1,7 @@
 # GitHub action "diskspace"
 
+**WORK IN PROGRESS**
+
 This GitHub action checks available disk space on a remote host.
 
 ## Requirements
@@ -7,6 +9,10 @@ This GitHub action checks available disk space on a remote host.
 `ssh` must be installed on the runner and ssh keys must be configured.
 
 ## Environment variables
+
+### DEBUG
+
+When set, the action will print detailed debug information.
 
 ### THRESHOLD
 
