@@ -27,8 +27,7 @@ SSH command to use.
 Default: `ssh`.
 
 Add nessesary `ssh` options and flags to in this command. For example,
-
-    SSH=ssh -i path/to/key
+`SSH=ssh -i path/to/key`.
 
 ### CMD
 
