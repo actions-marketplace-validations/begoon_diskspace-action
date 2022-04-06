@@ -1,0 +1,20 @@
+name: Integration test
+on:
+    push:
+        branches: [main]
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
+jobs:
+    diskspace-check:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: shimataro/ssh-key-action@v2
+              with:
+                  key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+                  known_hosts: "anything"
+            - run: ssh-keyscan -H ${{ secrets.EC2_SSH_HOST }} >> ~/.ssh/known_hosts
+            - uses: begoon/diskspace-action@v0.1
+              with:
+                  host: ${{ secrets.EC2_SSH_HOST }}
+                  threshold: 1000
