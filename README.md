@@ -7,8 +7,8 @@ This GitHub action checks available disk space on a remote host.
 `ssh` must be installed on the runner and ssh keys must be configured.
 
 Usually, linux hosts provide `ssh` by default, and the
-<https://github.com/shimataro/ssh-key-action> action can be used to configure
-the keys.
+[@shimataro/ssh-key-action](https://github.com/shimataro/ssh-key-action)
+action can be used to configure the keys.
 
 ## Inputs
 
@@ -33,7 +33,15 @@ to the `ssh` variable. For example, `ssh -i path/to/key`.
 
 ## Example usage
 
-    uses: begoon/diskspace-action@v1
-    with:
-        host: 1.1.1.1
-        threshold: 1000
+    - uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+        known_hosts: "anything"
+
+    - run: ssh-keyscan -H ${{ secrets.EC2_SSH_HOST }} >> ~/.ssh/known_hosts    
+  
+    - uses: begoon/diskspace-action@v1
+      with:
+          host: ${{ secrets.EC2_SSH_HOST }}
+          user: ec2-user
+          threshold: 1000
