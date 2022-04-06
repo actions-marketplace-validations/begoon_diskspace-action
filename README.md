@@ -14,12 +14,12 @@ action can be used to configure the keys.
 
 | Variable | Default |Description | Required |
 | --- | --- | --- | --- |
-| threshold | - | Minimum available disk space in megabytes. For example, `1000`, which means that 1000 megabytes are required. | YES |
-| host | - | Remote host to check. For example, `1.1.1.1`. | YES |
-| user | - | Remote host user. For example, `ec2-user`.| YES |
-| ssh | `ssh` | SSH command to run the command on the remote host. If necessary to add options or flags for the `ssh` command, they can be appended to the `ssh` variable. For example, `ssh -q`. | NO |
-| cmd | [note 1](#note-1) | Command to run on the remote host. | NO |
-| pattern | `[0-9]+` | Regular expression to find the available disk space in the output of the command. If the regular expression has groups (`()` are used), the first captured group will be used as the result. | No |
+| threshold | - | Minimum available disk space in megabytes. For example, `1000`, which means that 1000 megabytes are required. | Yes |
+| host | - | Remote host to check. For example, `1.1.1.1`. | Yes |
+| user | - | Remote host user. For example, `ec2-user`.| Yes |
+| ssh | `ssh` | SSH command to run the command on the remote host. If necessary to add options or flags for the `ssh` command, they can be appended to the `ssh` variable. For example, `ssh -q`. | No |
+| cmd | [note 1](#note-1) | Command to run on the remote host. | No |
+| pattern | `\d+` | Regular expression to find the available disk space in the output of the command. If the regular expression has groups (`()` are used), the first captured group will be used as the result. | No |
 
 ### Note 1
 
