@@ -17,4 +17,5 @@ jobs:
             - uses: begoon/diskspace-action@v0.3
               with:
                   host: ${{ secrets.EC2_SSH_HOST }}
+                  ssh: ssh -l ec2-user
                   threshold: ${{ secrets.DISKSPACE_THRESHOLD }}
