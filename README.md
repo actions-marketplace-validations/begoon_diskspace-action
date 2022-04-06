@@ -14,22 +14,16 @@ action can be used to configure the keys.
 
 | Variable | Default |Description | Required |
 | --- | --- | --- | --- |
-| debug | - | When set, the action prints detailed debug information. | NO |
-| threshold | - | Minimum available disk space in megabytes. | YES |
-| host | - | Remote host to check. | YES |
-| user | - | Remote host user. | YES |
-| ssh | `ssh` | SSH command to run the command on the remote host ([note 2](#note-2)). | NO |
+| threshold | - | Minimum available disk space in megabytes. For example, `1000`, which means that 1000 megabytes are required. | YES |
+| host | - | Remote host to check. For example, `1.1.1.1`. | YES |
+| user | - | Remote host user. For example, `ec2-user`.| YES |
+| ssh | `ssh` | SSH command to run the command on the remote host. If necessary to add options or flags for the `ssh` command, they can be appended to the `ssh` variable. For example, `ssh -q`. | NO |
 | cmd | [note 1](#note-1) | Command to run on the remote host. | NO |
-| pattern | `(\\d+)` | Regular expression to find the available disk space in the output of the command. | No |
+| pattern | `[0-9]+` | Regular expression to find the available disk space in the output of the command. If the regular expression has groups (`()` are used), the first captured group will be used as the result. | No |
 
 ### Note 1
 
 The default values for `cmd` is `df -BM --output=avail /dev/xvda1`.
-
-### Note 2
-
-If necessary to add options or flags for the `ssh` command, they can be appended
-to the `ssh` variable. For example, `ssh -i path/to/key`.
 
 ## Example usage
 
