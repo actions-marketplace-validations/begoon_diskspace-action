@@ -12,6 +12,7 @@ if (realHost) {
         const threshold = 100;
         process.env["INPUT_THRESHOLD"] = threshold;
         process.env["INPUT_HOST"] = realHost;
+        process.env["INPUT_USER"] = "ec2-user";
         const result = execSync(action, { env: process.env }).toString();
         const re = `::notice::threshold\\(${threshold}\\) <= avail\\(\\d+\\)`;
         const match = result.match(new RegExp(re));
@@ -22,6 +23,7 @@ if (realHost) {
         const threshold = 1024 * 1024;
         process.env["INPUT_THRESHOLD"] = threshold;
         process.env["INPUT_HOST"] = realHost;
+        process.env["INPUT_USER"] = "ec2-user";
         const error = t.throws(() => execSync(action, { env: process.env }), {
             instanceOf: Error,
         });
@@ -35,6 +37,7 @@ if (realHost) {
 test("test enough space", (t) => {
     process.env["INPUT_THRESHOLD"] = 100;
     process.env["INPUT_HOST"] = "-host-";
+    process.env["INPUT_USER"] = "-user-";
     process.env["INPUT_SSH"] = "node " + path.join(__dirname, "echo.js");
     process.env["INPUT_CMD"] = "Avail 300";
     process.env["INPUT_PATTERN"] = "[0-9]+";
@@ -52,6 +55,7 @@ test("test enough space", (t) => {
 test("test not enough space", (t) => {
     process.env["INPUT_THRESHOLD"] = 100;
     process.env["INPUT_HOST"] = "-host-";
+    process.env["INPUT_USER"] = "-user-";
     process.env["INPUT_SSH"] = "node " + path.join(__dirname, "echo.js");
     process.env["INPUT_CMD"] = "Avail 30";
     process.env["INPUT_PATTERN"] = "[0-9]+";
@@ -68,9 +72,10 @@ test("test not enough space", (t) => {
 test("test custom settings", (t) => {
     process.env["INPUT_THRESHOLD"] = 123;
     process.env["INPUT_HOST"] = "-host-";
+    process.env["INPUT_USER"] = "-user-";
     process.env["INPUT_SSH"] = "node " + path.join(__dirname, "echo.js");
     process.env["INPUT_CMD"] = "=cmd= _321_";
-    process.env["INPUT_PATTERN"] = "-host-,=cmd=,_([0-9]+)_";
+    process.env["INPUT_PATTERN"] = "-l,-user-,-host-,=cmd=,_([0-9]+)_";
 
     try {
         const result = execSync(action, { env: process.env }).toString();
@@ -85,6 +90,7 @@ test("test custom settings", (t) => {
 test("test custom pattern only", (t) => {
     process.env["INPUT_THRESHOLD"] = 123;
     process.env["INPUT_HOST"] = "-host-";
+    process.env["INPUT_USER"] = "-user-";
     process.env["INPUT_PATTERN"] = "321";
 
     try {

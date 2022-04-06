@@ -7,6 +7,9 @@ inputs:
     host: # id of input
         description: "Host to check free disk space on (for example, 200.100.100.50)."
         required: true
+    user: # id of input
+        description: "User name on the remote host (for example, ec2-user)."
+        required: true
     ssh: # id of input
         description: "'ssh' command to connect to the remote host."
         required: no
