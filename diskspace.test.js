@@ -20,7 +20,7 @@ if (realHost) {
             const re = `::notice::threshold\\(${threshold}\\) <= avail\\(\\d+\\)`;
             const match = result.match(new RegExp(re));
             t.truthy(match, JSON.stringify({ result, re, match }, null, 2));
-        } catch (e) {
+        } catch (error) {
             t.fail(error instanceof Error ? error.stdout.toString() : error);
         }
     });

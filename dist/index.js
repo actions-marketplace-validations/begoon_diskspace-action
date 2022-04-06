@@ -21,6 +21,7 @@ async function diskspace(exec) {
 
     const threshold = setting("threshold");
     const host = setting("host");
+    const user = setting("user");
 
     const ssh = setting("ssh", { default: default_ssh });
     const cmd = setting("cmd", { default: default_command });
@@ -28,7 +29,7 @@ async function diskspace(exec) {
 
     const re = new RegExp(pattern);
 
-    const sshCmd = `${ssh} ${host} ${cmd}`;
+    const sshCmd = `${ssh} -l ${user} ${host} ${cmd}`;
 
     let output = "";
     await exec(sshCmd, [], {
