@@ -1,0 +1,24 @@
+name: "Disk space"
+description: "GitHub action checks available disk space on remote host."
+inputs:
+    threshold: # id of input
+        description: "Minimum amount free disk space in megabytes for the action to succeed (for example, 1024, meaning 1 gigabyte at least)."
+        required: true
+    host: # id of input
+        description: "Host to check free disk space on (for example, 200.100.100.50)."
+        required: true
+    ssh: # id of input
+        description: "'ssh' command to connect to the remote host."
+        required: no
+        default: "ssh"
+    cmd: # id of input
+        description: "Command to run on the remote host to print free disk space."
+        required: no
+        default: "df -BM --output=avail /dev/xvda1"
+    pattern: # id of input
+        description: "Regular expression to find the free disk space number in the output of the 'cmd' command."
+        required: no
+        default: "[0-9]+"
+runs:
+    using: "node16"
+    main: "index.js"

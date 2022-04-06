@@ -1,11 +1,36 @@
 {
-    "name": "diskspace",
+    "name": "diskspace-action",
     "version": "1.0.0",
-    "description": "GitHub action to check available disk space on remote host",
+    "description": "GitHub action checks available disk space on remote host",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "lint": "eslint .",
+        "prepare": "ncc build index.js -o dist --source-map --license licenses.txt",
+        "test": "ava",
+        "all": "npm run lint && npm run prepare && npm run test"
     },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/begoon/diskspace-action.git"
+    },
+    "keywords": [
+        "GitHub",
+        "Actions",
+        "JavaScript"
+    ],
     "author": "",
-    "license": "ISC"
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/begoon/diskspace-action/issues"
+    },
+    "homepage": "https://github.com/begoon/diskspace-action#readme",
+    "dependencies": {
+        "@actions/core": "^1.2.5",
+        "@actions/exec": "^1.1.1"
+    },
+    "devDependencies": {
+        "@vercel/ncc": "^0.31.1",
+        "ava": "^3.15.0",
+        "eslint": "^8.0.0"
+    }
 }
