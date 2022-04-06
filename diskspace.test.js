@@ -5,18 +5,24 @@ const path = require("path");
 
 const action = "node " + path.join(__dirname, "index.js");
 
-const realHost = process.env.INTEGRATION_TEST_HOST;
+const realHost = process.env.INTEGRATION_HOST;
 
 if (realHost) {
     test("test enough space via internet", (t) => {
-        const threshold = 100;
-        process.env["INPUT_THRESHOLD"] = threshold;
-        process.env["INPUT_HOST"] = realHost;
-        process.env["INPUT_USER"] = "ec2-user";
-        const result = execSync(action, { env: process.env }).toString();
-        const re = `::notice::threshold\\(${threshold}\\) <= avail\\(\\d+\\)`;
-        const match = result.match(new RegExp(re));
-        t.truthy(match, JSON.stringify({ result, re, match }, null, 2));
+        try {
+            const threshold = 100;
+            process.env["INPUT_THRESHOLD"] = threshold;
+            process.env["INPUT_HOST"] = realHost;
+            process.env["INPUT_USER"] = "ec2-user";
+            process.env["INPUT_SSH"] = process.env.INTEGRATION_SSH || "ssh";
+
+            const result = execSync(action, { env: process.env }).toString();
+            const re = `::notice::threshold\\(${threshold}\\) <= avail\\(\\d+\\)`;
+            const match = result.match(new RegExp(re));
+            t.truthy(match, JSON.stringify({ result, re, match }, null, 2));
+        } catch (e) {
+            t.fail(error instanceof Error ? error.stdout.toString() : error);
+        }
     });
 
     test("test not enough space via internet", (t) => {
@@ -24,6 +30,7 @@ if (realHost) {
         process.env["INPUT_THRESHOLD"] = threshold;
         process.env["INPUT_HOST"] = realHost;
         process.env["INPUT_USER"] = "ec2-user";
+        process.env["INPUT_SSH"] = process.env.INTEGRATION_SSH || "ssh";
         const error = t.throws(() => execSync(action, { env: process.env }), {
             instanceOf: Error,
         });
