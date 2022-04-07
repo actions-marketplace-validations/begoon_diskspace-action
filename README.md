@@ -62,15 +62,17 @@ The default regular expression `\d+` matches the sequence of digits.
 
 ## Example usage
 
-    - uses: shimataro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-        known_hosts: "anything"
+```yaml
+- uses: shimataro/ssh-key-action@v2
+  with:
+    key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+    known_hosts: "anything"
 
-    - run: ssh-keyscan -H ${{ secrets.EC2_SSH_HOST }} >> ~/.ssh/known_hosts    
-  
-    - uses: begoon/diskspace-action@v1
-      with:
-          host: ${{ secrets.EC2_SSH_HOST }}
-          user: ec2-user
-          threshold: 1000
+- run: ssh-keyscan -H ${{ secrets.EC2_SSH_HOST }} >> ~/.ssh/known_hosts    
+
+- uses: begoon/diskspace-action@v1
+  with:
+      host: ${{ secrets.EC2_SSH_HOST }}
+      user: ec2-user
+      threshold: 1000
+```
