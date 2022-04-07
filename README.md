@@ -1,3 +1,11 @@
+[![GitHub Action][test-badge]][test-pipeline]
+[![GitHub Action][integration-badge]][integration-pipeline]
+
+[test-badge]: https://github.com/begoon/diskspace-action/actions/workflows/test.yaml/badge.svg
+[test-pipeline]: https://github.com/begoon/diskspace-action/actions/workflows/test.yaml
+[integration-badge]: https://github.com/begoon/diskspace-action/actions/workflows/integration_test.yaml/badge.svg
+[integration-pipeline]: https://github.com/begoon/diskspace-action/actions/workflows/integration_test.yaml
+
 # GitHub action "diskspace"
 
 This GitHub action checks available disk space on a remote host.
