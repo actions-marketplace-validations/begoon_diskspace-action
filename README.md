@@ -53,7 +53,7 @@ The default values for `cmd` is `df -BM --output=avail /dev/xvda1`.
 
 On Amazon Linux this command prints something like:
 
-```
+```text
  Avail
 16813M
 ```
