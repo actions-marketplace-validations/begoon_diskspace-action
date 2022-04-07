@@ -1,3 +1,5 @@
+# GitHub action "diskspace"
+
 [![GitHub Action][test-badge]][test-pipeline]
 [![GitHub Action][integration-badge]][integration-pipeline]
 
@@ -6,13 +8,29 @@
 [integration-badge]: https://github.com/begoon/diskspace-action/actions/workflows/integration_test.yaml/badge.svg
 [integration-pipeline]: https://github.com/begoon/diskspace-action/actions/workflows/integration_test.yaml
 
-# GitHub action "diskspace"
+This GitHub action checks available disk space on a remote host. It can
+be convinient when you deploy to a remote host from the GitHub action,
+and you want to make sure that there is enough disk space there.
 
-This GitHub action checks available disk space on a remote host.
+With this action, you can specify the host and the threshold. The action
+will connect to the host and check that the available disk space is more
+than the threshold. If it is less than the threshold, the action will fail.
+
+The action uses `ssh` to connect to the remote host. The action executes
+a command to print the available disk space. By default, the `df` command
+is used with some flags. Then a regular expression is used to find the
+number representing the available diskspace.
+
+If the number is found, it is compared to the `threshold`. If the
+available disk space is less then the `threshold`, the action will fail.
+Otherwise, the action will succeed.
+
+If the number representing the available disk is not found by the regular
+expression, the action will fail as well.
 
 ## Requirements
 
-`ssh` must be installed on the runner and ssh keys must be configured.
+`ssh` must be available on the runner, and ssh keys must be configured.
 
 Usually, linux hosts provide `ssh` by default, and the
 [@shimataro/ssh-key-action](https://github.com/shimataro/ssh-key-action)
@@ -32,6 +50,15 @@ action can be used to configure the keys.
 ### Note 1
 
 The default values for `cmd` is `df -BM --output=avail /dev/xvda1`.
+
+On Amazon Linux this command prints something like:
+
+```
+ Avail
+16813M
+```
+
+The default regular expression `\d+` matches the sequence of digits.
 
 ## Example usage
 
