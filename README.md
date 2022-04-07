@@ -9,7 +9,7 @@
 [integration-pipeline]: https://github.com/begoon/diskspace-action/actions/workflows/integration_test.yaml
 
 This GitHub action checks available disk space on a remote host. It can
-be convinient when you deploy to a remote host from the GitHub action,
+be convenient when you deploy to a remote host from the GitHub action,
 and you want to make sure that there is enough disk space there.
 
 With this action, you can specify the host and the threshold. The action
@@ -19,10 +19,10 @@ than the threshold. If it is less than the threshold, the action will fail.
 The action uses `ssh` to connect to the remote host. The action executes
 a command to print the available disk space. By default, the `df` command
 is used with some flags. Then a regular expression is used to find the
-number representing the available diskspace.
+number representing the available disk space.
 
 If the number is found, it is compared to the `threshold`. If the
-available disk space is less then the `threshold`, the action will fail.
+available disk space is less than the `threshold`, the action will fail.
 Otherwise, the action will succeed.
 
 If the number representing the available disk is not found by the regular
